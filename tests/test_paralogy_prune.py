@@ -1,4 +1,4 @@
-from biolite import workflows
+from phylopytho import treeprune
 from dendropy import Tree
 # import dendropy
 
@@ -8,7 +8,7 @@ def parse_tree( tree_string ):
 
 def get_taxon_names( tree ):
 	# Get frozenset of taxon names in a Tree
-	return frozenset(workflows.phylogeny.get_taxa(tree.leaf_nodes()))
+	return frozenset(treeprune.get_taxa(tree.leaf_nodes()))
 
 def get_taxon_sets( trees ):
 	# Take a list of trees
@@ -20,7 +20,7 @@ def get_taxon_sets( trees ):
 def prune_to_sets( tree ):
 	# paralogy_prune a tree, return a set of frozensets of taxon names in subtrees
 	pruned_trees = []
-	workflows.phylogeny.paralogy_prune(tree, pruned_trees)
+	treeprune.paralogy_prune(tree, pruned_trees)
 	return get_taxon_sets( pruned_trees )
 
 def string_to_pruned_sets( tree_string ):
@@ -118,7 +118,7 @@ def test_tree9():
 def test_split1():
 	tree = parse_tree("(((((A@1,B@1),C@1),D@1),E@1),F@1);" )
 	node1 = tree.mrca(taxon_labels=[ 'A@1','B@1' ])
-	subtrees = workflows.phylogeny.split_tree( tree, [ node1 ] )
+	subtrees = treeprune.split_tree( tree, [ node1 ] )
 	tree_sets = get_taxon_sets( subtrees )
 	expected = set([frozenset([ 'A@1','B@1' ]), frozenset(['C@1', 'D@1', 'E@1', 'F@1'])])
 	assert( tree_sets == expected )
@@ -129,7 +129,7 @@ def test_split2():
 	tree = parse_tree("(((((A@1,B@1),C@1),D@1),E@1),F@1);" )
 	node1 = tree.mrca(taxon_labels=[ 'A@1','B@1' ])
 	node2 = tree.find_node_with_taxon_label('C@1')
-	subtrees = workflows.phylogeny.split_tree( tree, [ node1, node2 ] )
+	subtrees = treeprune.split_tree( tree, [ node1, node2 ] )
 	tree_sets = get_taxon_sets( subtrees )
 	expected = set([frozenset([ 'A@1','B@1' ]), frozenset(['C@1']), frozenset(['D@1', 'E@1', 'F@1'])])
 	assert( tree_sets == expected )
@@ -139,7 +139,7 @@ def test_split3():
 	node1 = tree.mrca(taxon_labels=[ 'A@1','B@1' ])
 	node2 = tree.find_node_with_taxon_label('C@1')
 	node3 = tree.mrca(taxon_labels=[ 'A@1','E@1' ])
-	subtrees = workflows.phylogeny.split_tree( tree, [ node1, node2, node3 ] )
+	subtrees = treeprune.split_tree( tree, [ node1, node2, node3 ] )
 	tree_sets = get_taxon_sets( subtrees )
 	expected = set([frozenset([ 'A@1','B@1' ]), frozenset(['C@1']), frozenset(['D@1', 'E@1']), frozenset(['F@1'])])
 	assert( tree_sets == expected )
@@ -150,7 +150,7 @@ def test_split4():
 	node2 = tree.find_node_with_taxon_label('C@1')
 	node3 = tree.mrca(taxon_labels=[ 'A@1','E@1' ])
 	node4 = tree.find_node_with_taxon_label('F@1')
-	subtrees = workflows.phylogeny.split_tree( tree, [ node1, node2, node3 ] )
+	subtrees = treeprune.split_tree( tree, [ node1, node2, node3 ] )
 	tree_sets = get_taxon_sets( subtrees )
 	expected = set([frozenset([ 'A@1','B@1' ]), frozenset(['C@1']), frozenset(['D@1', 'E@1']), frozenset(['F@1'])])
 	assert( tree_sets == expected )
