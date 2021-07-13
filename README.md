@@ -40,7 +40,7 @@ The treeprune code presented here was derived directly from the Agalma code, and
 
 ### Example treeprune analysis
 
-In the `phylopytho` directory within this repository, first activate the conda environment as described above, and then run:
+In the `src/phylopytho` directory within this repository, first activate the conda environment as described above, and then run:
 
     python treeprune.py data\gene_trees.tre pruned_trees.tre
 
