@@ -1,17 +1,20 @@
 # phylopytho
 
-Phylogenetic tools written in python.
+Phylogenetic tools written in python by the [Dunn Lab](http://dunnlab.org/).
 
 
-To prepare a conda environment:
+To prepare a conda environment (before first use):
 
     conda create -n phylopytho -c bioconda dendropy pytest
+
+To activate the conda environment (before each use):
+
     conda activate phylopytho
 
 
 ## treeprune
 
-treeprune is a method and tool to decompose gene trees into subtrees that have no more than one tip per species. It does this by traversing the tree, removing the maximally inclusive subtree that has no more than one tip per species, and then repeating this process on the remaining tree until it too has no more than one tip per species. If there are two subtrees with no more than one tip per species and they both have the same size and it is the maximum, they are both pruned. 
+treeprune is a method and tool to decompose gene trees into subtrees that have no more than one tip per species. It does this by traversing the tree, removing the maximally inclusive subtree that has no more than one tip per species, and then repeating this process on the remaining tree until it too has no more than one tip per species. If there are two subtrees with no more than one tip per species and they both have the same size and it is the maximum, they are both pruned.
 
 treeprune is not sensitive to the position of the tree root.
 
@@ -30,18 +33,26 @@ The second paper is the python implementation of the method in our tool [Agalma]
 CW Dunn, M Howison, and F Zapata (2013) Agalma: an automated phylogenomics workflow. BMC Bioinformatics 14:330. http://dx.doi.org/10.1186/1471-2105-14-330
 
 
-The code presented here was derived directly from the Agalma code, and includes the following modifications:
+The treeprune code presented here was derived directly from the Agalma code, and includes the following modifications:
 - Code was update from python 2 to python 3
 - Only the code and dependencies relevant to treeprune were retained, greatly reducing dependencies
 - Code was added so that treeprune can be used as a standalone tool rather than as part of the agalma pipeline.
 
-### Example of treeprune analysis
+### Example treeprune analysis
 
 In the `phylopytho` directory within this repository, first activate the conda environment as described above, and then run:
 
     python treeprune.py data\gene_trees.tre pruned_trees.tre
 
-## Running tests
+This will generate a set of pruned trees from an example set of trees included in the module.
+
+To get a full description of options run:
+
+    python treeprune.py -h
+
+## Development
+
+### Running tests
 
 In the root of this repository, run:
 

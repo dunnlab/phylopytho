@@ -158,7 +158,7 @@ if __name__ == "__main__":
   input_trees = dendropy.TreeList.get(path=input_name, schema="newick")
 
   output_trees = dendropy.TreeList()
-  
+
   if args.disablemonophylymask:
     print('Skipping monophyly masking')
 
