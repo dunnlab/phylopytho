@@ -34,7 +34,7 @@ def count_orthologs(taxa):
 	taxon names. If there are less species than taxon names, then the count is
 	0 since there must be some paralogs.
 	"""
-	species = map(get_species, taxa)
+	species = list(map(get_species, taxa))
 	return len(species) * int(len(species) == len(set(species)))
 
 
@@ -121,11 +121,11 @@ def paralogy_prune(tree, pruned_trees):
 	#print tree.as_ascii_plot(show_internal_node_labels=True)
 
 	# Calculate the maximum number of orthologs across all nodes.
-	all_max = max(counts.itervalues())
+	all_max = max(counts.values())
 
 	# Create a list of the nodes that have this max value, where we might split
 	# the tree.
-	splits = filter(lambda node : counts[node] == all_max, counts)
+	splits = [node for node in counts if counts[node] == all_max]
 	assert splits
 
 	n_species = count_species( get_taxa(tree.leaf_nodes()) )
