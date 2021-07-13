@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import dendropy
+import argparse
 from collections import OrderedDict
 
 def get_species(taxon):
@@ -139,3 +140,27 @@ def paralogy_prune(tree, pruned_trees):
 		subtrees = split_tree(tree, splits)
 		for subtree in subtrees:
 			paralogy_prune(subtree, pruned_trees)
+
+if __name__ == "__main__":
+
+  # https://docs.python.org/3/howto/argparse.html
+  parser = argparse.ArgumentParser(description="prune one or more gene trees into maximally inclusive subtrees with no more than one tip per species")
+  parser.add_argument("input", help="input tree file, containing one or more phylogenies in newick format")
+  parser.add_argument("output", help="output tree file, containing all the pruned subtrees")
+  parser.add_argument("-d", "--disablemonophylymask", help="disable monophyly masking prior to treeprune",
+                    action="store_true")
+  parser.add_argument("-m", "--mintreesize", type=int, default=4,
+                    help="the minimum size of pruned trees to retain")
+  args = parser.parse_args()
+  
+  input_name = args.input
+  print(f'Input file: {input_name}')
+  input_trees = dendropy.TreeList.get(path=input_name, schema="newick")
+
+  output_trees = dendropy.TreeList()
+
+
+  output_name = args.output
+  print(f'Output file: {output_name}')
+  #output_trees.write(output_name, schema="newick")
+

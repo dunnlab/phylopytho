@@ -35,6 +35,11 @@ The code presented here was derived directly from the Agalma code, and includes 
 - Only the code and dependencies relevant to treeprune were retained, greatly reducing dependencies
 - Code was added so that treeprune can be used as a standalone tool rather than as part of the agalma pipeline.
 
+### Example of treeprune analysis
+
+In the `phylopytho` directory within this repository, first activate the conda environment as described above, and then run:
+
+    python treeprune.py data\gene_trees.tre out.tre
 
 ## Running tests
 
