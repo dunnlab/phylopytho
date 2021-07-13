@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import dendropy
-from Bio import SeqIO
 from collections import OrderedDict
 
 def get_species(taxon):

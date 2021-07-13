@@ -5,7 +5,7 @@ Phylogenetic tools written in python.
 
 To prepare a conda environment:
 
-    conda create -n phylopytho -c bioconda biopython dendropy pytest
+    conda create -n phylopytho -c bioconda dendropy pytest
     conda activate phylopytho
 
 
