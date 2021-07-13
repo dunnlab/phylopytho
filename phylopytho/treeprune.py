@@ -158,9 +158,37 @@ if __name__ == "__main__":
   input_trees = dendropy.TreeList.get(path=input_name, schema="newick")
 
   output_trees = dendropy.TreeList()
+  
+  if args.disablemonophylymask:
+    print('Skipping monophyly masking')
 
+  n_in = 0
+  n_out = 0
+  n_reject = 0
+
+  for tree in input_trees:
+    n_in = n_in + 1
+
+    if not args.disablemonophylymask:
+      tree = monophyly_masking(tree)
+
+    pruned_trees = []
+    paralogy_prune(tree, pruned_trees)
+
+    for pruned_tree in pruned_trees:
+      n_tips = len(pruned_tree.leaf_nodes())
+      if n_tips >= args.mintreesize:
+        n_out = n_out + 1
+        output_trees.append(pruned_tree)
+      else:
+        n_reject = n_reject + 1	  
 
   output_name = args.output
   print(f'Output file: {output_name}')
-  #output_trees.write(output_name, schema="newick")
+  output_trees.write(path=output_name, schema="newick")
+
+  print(f'{n_in} trees read from input file')
+  print(f'{n_reject} pruned trees rejected because they had too few tips')
+  print(f'{n_out} pruned trees written to the output file')
+
 
