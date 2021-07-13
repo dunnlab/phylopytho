@@ -1,6 +1,5 @@
 from phylopytho import treeprune
 from dendropy import Tree
-# import dendropy
 
 def parse_tree( tree_string ):
 	# Convert string to tree object, abstract this since it changes between dendropy versions
