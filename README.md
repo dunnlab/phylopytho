@@ -42,7 +42,7 @@ The treeprune code presented here was derived directly from the Agalma code, and
 
 In the `src/phylopytho` directory within this repository, first activate the conda environment as described above, and then run:
 
-    python treeprune.py data\gene_trees.tre pruned_trees.tre
+    python treeprune.py data/gene_trees.tre pruned_trees.tre
 
 This will generate a set of pruned trees from an example set of trees included in the module.
 
@@ -57,5 +57,3 @@ To get a full description of options run:
 In the root of this repository, run:
 
     python -m pytest
-
-
