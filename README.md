@@ -105,4 +105,6 @@ To get a full description of options run:
 
 In the root of this repository, run:
 
+    conda activate phylopytho
+    # pip install .[dev]
     python -m pytest
