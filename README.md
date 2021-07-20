@@ -14,6 +14,12 @@ To activate the conda environment (before each use):
 
     conda activate phylopytho
 
+
+## Conventions
+
+Tip names on trees follow the convention `taxon@ID`, for example `Nematostella_vectensis@301933`. `taxon` can be any name, but is typically `Genus_species`. `ID` is a unique identifier. It can be unique to the taxon, or globally unique across all taxa. Avoid spaces or special characters in the names.
+
+
 ## treeprune
 
 `treeprune`, available in the phylopytho module, is a method and tool to decompose gene trees into subtrees that have no more than one tip per species. It does this in two steps - `monophyly_prune` and `paralogy_prune`.
@@ -43,24 +49,46 @@ The `treeprune` code presented here was derived directly from the Agalma code, a
 
 ### Example of using treeprune within python
 
-Shell commands to get the environment set up and launch python
+Both `monophyly_prune` and `paralogy_prune` are available from `phylopytho.treeprune`:
 
-    conda create -n phylogenetics
-    conda activate phylogenetics
-    python -m pip install git+https://github.com/dunnlab/phylopytho.git
-    python
+    from dendropy import Tree
+    from phylopytho import treeprune
 
-And now within python:
+    # Build the tree
+    tree_text = "(((((((A@1,B@1),C@1),A@2),A@4),(B@2,B@3)),C@2),A@3);"
+    t = Tree.get_from_string( tree_text, schema='newick', rooting='force-rooted' )
+    t.print_plot()
 
-     import dendropy as Tree
-     from phylopytho import treeprune
+    # Perform monophyly pruning
+    t = treeprune.monophyly_prune(t)
+    t.print_plot()
 
-     tree_text = "(((((((A@1,B@1),C@1),A@2),A@4),B@2),C@2),A@3);"
+    # Perform paralogy pruning
+    pruned_trees = list()
+    treeprune.paralogy_prune(t, pruned_trees)
+    print(f'Number of pruned subtrees: {len(pruned_trees)}')
+
+    # Print the trees
+    for pruned_tree in pruned_trees:
+      # Can only print trees with more than 1 tip
+      if len(pruned_tree) > 1:
+        pruned_tree.print_plot()
+      else:
+        print("single taxon")
+    
+    # Print the sets of tips in each tree
+    for pruned_tree in pruned_trees:
+      tips = treeprune.get_taxa(pruned_tree.leaf_nodes())
+      print(tips)
+
+
 
 
 ### Example of command line treeprune analysis
 
-In the root of this repository, first activate the conda environment as described above, and then run:
+`treeprune` can also be used at the command line as a stand-alone script when the phylopytho module is installed. By default, it applies both `monophyly_prune` and `paralogy_prune`.
+
+To give it a try, in the root of this repository first activate the conda environment as described above, and then run:
 
     treeprune phylopytho/data/gene_trees.tre pruned_trees.tre
 
@@ -69,6 +97,7 @@ This will generate a set of pruned trees from an example set of trees included i
 To get a full description of options run:
 
     treeprune --help
+
 
 ## Development
 
