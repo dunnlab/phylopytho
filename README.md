@@ -49,7 +49,7 @@ The `treeprune` code presented here was derived directly from the Agalma code, a
 
 ### Example of using treeprune within python
 
-Both `monophyly_prune` and `paralogy_prune` are available from `phylopytho.treeprune`:
+Both `monophyly_prune` and `paralogy_prune` are available from `phylopytho.treeprune`, and can be used as follows. A [Google Colab notebook](https://colab.research.google.com/drive/1Eti2n00gh7uF76k3IbrCDlu5D22zYWx5?usp=sharing) based on this example is also available.
 
     from dendropy import Tree
     from phylopytho import treeprune
