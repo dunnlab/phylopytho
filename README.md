@@ -5,12 +5,13 @@ Phylogenetic tools written in python by the [Dunn Lab](http://dunnlab.org/).
 
 To prepare a conda environment (before first use):
 
-    conda create -n phylopytho -c bioconda dendropy pytest
+    conda create -n phylopytho -c conda-forge -c bioconda dendropy pytest
+    conda activate phylopytho
+    pip install 
 
 To activate the conda environment (before each use):
 
     conda activate phylopytho
-
 
 ## treeprune
 
@@ -58,15 +59,15 @@ And now within python:
 
 ### Example of command line treeprune analysis
 
-In the `phylopytho` directory within this repository, first activate the conda environment as described above, and then run:
+In the root of this repository, first activate the conda environment as described above, and then run:
 
-    python treeprune.py data/gene_trees.tre pruned_trees.tre
+    treeprune data/gene_trees.tre pruned_trees.tre
 
 This will generate a set of pruned trees from an example set of trees included in the module.
 
 To get a full description of options run:
 
-    python treeprune.py -h
+    treeprune --help
 
 ## Development
 

@@ -4,6 +4,10 @@ import dendropy
 import argparse
 from collections import OrderedDict
 
+# import sample data, could be used for an --example option
+# import pkg_resources
+# example_tree_file = pkg_resources.resource_string(__name__, "data/gene_trees.tre")
+
 def get_species(taxon):
 	"""
 	Parses the species from a taxon name in the format 'species@sequence_id'.
@@ -141,7 +145,7 @@ def paralogy_prune(tree, pruned_trees):
 		for subtree in subtrees:
 			paralogy_prune(subtree, pruned_trees)
 
-if __name__ == "__main__":
+def main():
 
   # https://docs.python.org/3/howto/argparse.html
   parser = argparse.ArgumentParser(description="prune one or more gene trees into maximally inclusive subtrees with no more than one tip per species")
@@ -191,4 +195,5 @@ if __name__ == "__main__":
   print(f'{n_reject} pruned trees rejected because they had too few tips')
   print(f'{n_out} pruned trees written to the output file')
 
-
+if __name__ == "__main__":
+	main()
