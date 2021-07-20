@@ -61,7 +61,7 @@ And now within python:
 
 In the root of this repository, first activate the conda environment as described above, and then run:
 
-    treeprune data/gene_trees.tre pruned_trees.tre
+    treeprune phylopytho/data/gene_trees.tre pruned_trees.tre
 
 This will generate a set of pruned trees from an example set of trees included in the module.
 
