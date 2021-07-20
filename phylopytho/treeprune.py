@@ -41,7 +41,7 @@ def count_orthologs(taxa):
 	return len(species) * int(len(species) == len(set(species)))
 
 
-def monophyly_masking(tree):
+def monophyly_prune(tree):
 	"""
 	Takes a tree and identifies clades that have more than one sequence per
 	taxon and prunes tip at random leaving a single representative sequence per
