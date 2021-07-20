@@ -151,7 +151,7 @@ def main():
   parser = argparse.ArgumentParser(description="prune one or more gene trees into maximally inclusive subtrees with no more than one tip per species")
   parser.add_argument("input", help="input tree file, containing one or more phylogenies in newick format")
   parser.add_argument("output", help="output tree file, containing all the pruned subtrees")
-  parser.add_argument("-d", "--disablemonophylyprune", help="disable monophyly pruning prior to treeprune",
+  parser.add_argument("-d", "--disablemonophylyprune", help="disable monophyly_prune prior to paralogy_prune",
                     action="store_true")
   parser.add_argument("-m", "--mintreesize", type=int, default=4,
                     help="the minimum size of pruned trees to retain")
