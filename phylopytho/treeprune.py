@@ -151,7 +151,7 @@ def main():
   parser = argparse.ArgumentParser(description="prune one or more gene trees into maximally inclusive subtrees with no more than one tip per species")
   parser.add_argument("input", help="input tree file, containing one or more phylogenies in newick format")
   parser.add_argument("output", help="output tree file, containing all the pruned subtrees")
-  parser.add_argument("-d", "--disablemonophylymask", help="disable monophyly masking prior to treeprune",
+  parser.add_argument("-d", "--disablemonophylyprune", help="disable monophyly pruning prior to treeprune",
                     action="store_true")
   parser.add_argument("-m", "--mintreesize", type=int, default=4,
                     help="the minimum size of pruned trees to retain")
@@ -163,8 +163,8 @@ def main():
 
   output_trees = dendropy.TreeList()
 
-  if args.disablemonophylymask:
-    print('Skipping monophyly masking')
+  if args.disablemonophylyprune:
+    print('Skipping monophyly pruning')
 
   n_in = 0
   n_out = 0
@@ -173,8 +173,8 @@ def main():
   for tree in input_trees:
     n_in = n_in + 1
 
-    if not args.disablemonophylymask:
-      tree = monophyly_masking(tree)
+    if not args.disablemonophylyprune:
+      tree = monophyly_prune(tree)
 
     pruned_trees = []
     paralogy_prune(tree, pruned_trees)
