@@ -38,6 +38,24 @@ The treeprune code presented here was derived directly from the Agalma code, and
 - Only the code and dependencies relevant to treeprune were retained, greatly reducing dependencies
 - Code was added so that treeprune can be used as a standalone tool rather than as part of the agalma pipeline.
 
+
+### Example of using treeprune within python
+
+Shell commands to get the environment set up and launch python
+
+    conda create -n phylogenetics
+    conda activate phylogenetics
+    python -m pip install git+https://github.com/dunnlab/phylopytho.git
+    python
+
+And now within python:
+
+     import dendropy as Tree
+     from phylopytho import treeprune
+
+     tree_text = "(((((((A@1,B@1),C@1),A@2),A@4),B@2),C@2),A@3);"
+
+
 ### Example of command line treeprune analysis
 
 In the `phylopytho` directory within this repository, first activate the conda environment as described above, and then run:
