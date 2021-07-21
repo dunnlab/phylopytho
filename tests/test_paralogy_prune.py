@@ -153,3 +153,14 @@ def test_split4():
 	tree_sets = get_taxon_sets( subtrees )
 	expected = set([frozenset([ 'A@1','B@1' ]), frozenset(['C@1']), frozenset(['D@1', 'E@1']), frozenset(['F@1'])])
 	assert( tree_sets == expected )
+
+
+def test_valid_names():
+	tree = parse_tree("(((((A@1,B@1),C@1),D@1),E@1),F@1);" )
+	invalid = treeprune.validate_names(tree)
+	assert(len(invalid)==0)
+
+def test_invalid_names():
+	tree = parse_tree("(((((A01,B@1),C@1),D@1),E@1),F@1);" )
+	invalid = treeprune.validate_names(tree)
+	assert(len(invalid)==1)

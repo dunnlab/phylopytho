@@ -21,6 +21,26 @@ def get_taxa(nodes):
 	"""
 	return [node.taxon.label for node in nodes]
 
+def validate_names(tree):
+	"""
+	Returns a list of any tip names that do not conform to the
+	taxon@id format. An empty list indicates that all names conform.
+	"""
+	invalid_names = list()
+	for tip_name in get_taxa(tree.leaf_nodes()):
+		valid = True
+		fields = tip_name.split("@")
+		if len(fields) != 2:
+			valid = False
+		else:
+			if not len(fields[0]) > 0:
+				valid = False
+			if not len(fields[0]) > 0:
+				valid = False
+		if not valid:
+			invalid_names.append(tip_name)
+
+	return invalid_names
 
 def count_species(taxa):
 	"""
@@ -47,6 +67,12 @@ def monophyly_prune(tree):
 	taxon and prunes tip at random leaving a single representative sequence per
 	taxon.
 	"""
+
+	invalid_names = validate_names(tree)
+	if len(invalid_names) > 0:
+		raise ValueError(f"Tip name {invalid_names[0]} does not conform to taxon@id naming requirement.")
+
+
 	for node in tree.internal_nodes():
 		if node.parent_node:
 			tree.reroot_at_node(node)
@@ -100,6 +126,11 @@ def paralogy_prune(tree, pruned_trees):
 	Takes a tree and loops through the internal nodes (except root) and gets
 	the maximum number of orthologs on either side of each node.
 	"""
+
+	invalid_names = validate_names(tree)
+	if len(invalid_names) > 0:
+		raise ValueError(f"Tip name {invalid_names[0]} does not conform to taxon@id naming requirement.")
+
 	# A dictionary will keep track of node (key) and maximum number of
 	# orthologs at this node (value). Internal nodes are reported by dendropy
 	# in prefix order, so by using an OrderedDict, we will split the tree as
