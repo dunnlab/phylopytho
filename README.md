@@ -104,6 +104,7 @@ To get a full description of options run:
 ### Setting up the development environment
 
 To setup the development environment:
+
     conda activate phylopytho
     pip install .[dev]
     pre-commit install
