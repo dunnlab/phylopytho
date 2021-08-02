@@ -75,7 +75,7 @@ Both `monophyly_prune` and `paralogy_prune` are available from `phylopytho.treep
         pruned_tree.print_plot()
       else:
         print("single taxon")
-    
+
     # Print the sets of tips in each tree
     for pruned_tree in pruned_trees:
       tips = treeprune.get_taxa(pruned_tree.leaf_nodes())
@@ -101,10 +101,19 @@ To get a full description of options run:
 
 ## Development
 
+### Setting up the development environment
+
+To setup the development environment:
+    conda activate phylopytho
+    pip install .[dev]
+    pre-commit install
+
+This creates hooks that will run black and flake8 upon each commit.
+
+
 ### Running tests
 
 In the root of this repository, run:
 
     conda activate phylopytho
-    # pip install .[dev]
     python -m pytest
