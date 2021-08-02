@@ -35,7 +35,7 @@ def validate_names(tree):
 		else:
 			if not len(fields[0]) > 0:
 				valid = False
-			if not len(fields[0]) > 0:
+			if not len(fields[1]) > 0:
 				valid = False
 		if not valid:
 			invalid_names.append(tip_name)
@@ -77,9 +77,11 @@ def monophyly_prune(tree):
 		if node.parent_node:
 			tree.reroot_at_node(node)
 			for leaf in tree.leaf_nodes():
-				sister = leaf.sister_nodes()[0]
-				if get_species(leaf.taxon) == get_species(sister.taxon):
-					tree.prune_taxa([leaf.taxon], update_bipartitions=False)
+				sisters = leaf.sister_nodes()
+				if len(sisters) > 0:
+					sister = leaf.sister_nodes()[0]
+					if get_species(leaf.taxon) == get_species(sister.taxon):
+						tree.prune_taxa([leaf.taxon], update_bipartitions=False)
 	return tree
 
 

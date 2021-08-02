@@ -155,6 +155,18 @@ def test_split4():
 	assert( tree_sets == expected )
 
 
+def test_single_taxon_tree():
+	tree = parse_tree("(((A@1,A@2),A@3),(A@4,A@5));" )
+	tree_out = treeprune.monophyly_prune( tree )
+	assert(len(tree_out)==1)
+
+
+def test_single_taxon_real_tree():
+	tree = parse_tree("(Nematostella_vectensis@NVE10765:0.0811803,(Nematostella_vectensis@NVE17155:0.143409,(((Nematostella_vectensis@v1g153109:0.0230359,Nematostella_vectensis@NVE11739:0.254247):0.0390153,Nematostella_vectensis@v1g62840:0.0606854):0.0268743,((((Nematostella_vectensis@v1g218086:1.27204,Nematostella_vectensis@v1g156446:0.0934495):0.346994,Nematostella_vectensis@v1g96319:0.847247):0.231888,Nematostella_vectensis@v1g121303:0.568766):0.0721477,(Nematostella_vectensis@v1g56806:0.491328,((Nematostella_vectensis@v1g94452:0.0516686,Nematostella_vectensis@v1g62874:0.0738624):0.0986336,(Nematostella_vectensis@v1g208380:0.329208,(Nematostella_vectensis@v1g204576:0.835227,Nematostella_vectensis@NVE11602:7.29615e-06):0.323783):0.175591):0.297521):0.0728142):0.465173):0.0755928):0.0811803);")
+	tree_out = treeprune.monophyly_prune( tree )
+	assert(len(tree_out)==1)
+
+
 def test_valid_names():
 	tree = parse_tree("(((((A@1,B@1),C@1),D@1),E@1),F@1);" )
 	invalid = treeprune.validate_names(tree)
